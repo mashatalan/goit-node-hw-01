@@ -41,13 +41,16 @@ async function removeContact(contactId) {
 
 async function addContact(name, email, phone) {
   const contactList = await listContacts() || [];
-  contactList.push({
+  const contactToAdd = {
     id: uuid(),
     name,
     email,
     phone,
-  });
+  };
+  contactList.push(contactToAdd);
   await writeFile(contactsPath, contactList);
+
+  return contactToAdd;
 }
 
 async function writeFile(filename, data) {
